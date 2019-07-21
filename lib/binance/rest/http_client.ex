@@ -1,4 +1,6 @@
 defmodule Binance.Rest.HTTPClient do
+  require Logger
+
   @endpoint "https://api.binance.com"
 
   def get_binance(url, headers \\ []) do
@@ -36,7 +38,9 @@ defmodule Binance.Rest.HTTPClient do
       )
       |> Base.encode16()
 
-    get_binance("#{url}?#{argument_string}&signature=#{signature}", headers)
+    dest_url = "#{url}?#{argument_string}&signature=#{signature}"
+    Logger.info("Request to #{dest_url} with header #{inspect(headers)}")
+    get_binance(dest_url, headers)
   end
 
   def post_binance(url, params) do
