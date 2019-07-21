@@ -24,3 +24,6 @@ binance-*.tar
 
 # Elixir Language Server
 .elixir_ls
+
+.idea
+*.iml

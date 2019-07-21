@@ -454,4 +454,18 @@ defmodule Binance do
       err -> err
     end
   end
+
+  def get_kline(symbol, nil) do
+    get_kline(symbol, "1d")
+  end
+
+  def get_kline(symbol, interval) do
+    api_key = Application.get_env(:binance, :api_key)
+    secret_key = Application.get_env(:binance, :secret_key)
+
+    case HTTPClient.get_binance("/api/v1/klines", %{:symbol => symbol, :interval => interval}, secret_key, api_key) do
+      {:ok, data} -> data
+      err -> err
+    end
+  end
 end
